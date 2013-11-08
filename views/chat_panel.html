@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='stackchat'>
+  <head>
+    <title>Stack Chat</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+  </head>
+  <body ng-controller="ChatCtrl">
+    <div class="container">
+      <ul>
+        <div ng-repeat="msg in messages">
+          <li>
+            {{msg.body}}
+          </li>
+          <div class="username-wrapper" ng-hide="messages[$index+1] && messages[$index+1].username == msg.username">
+            <p class="msg-username">{{msg.username || "anon(s)"}}</p>
+            <hr class="msg-username-break">
+          </div>
+        </div>
+        <li ng-show="messages.length == 0">Be the first to chat about this question!</li>
+      </ul>
+      <textarea ng-model="msg" ng-keydown="addMessage($event)"></textarea>
+    </div>
+    
+    <script src="../assets/js/angular.min.js"></script>
+    <script src="../assets/js/controllers.js"></script>
+  </body>
+</html>
+
