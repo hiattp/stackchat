@@ -16,9 +16,11 @@
             <hr class="msg-username-break">
           </div>
         </div>
-        <li ng-show="messages.length == 0">Be the first to chat about this question!</li>
+        <li ng-show="messages.length == 0">Be the first to post a note/chat about this question!</li>
       </ul>
       <textarea ng-model="msg" ng-keydown="addMessage($event)"></textarea>
+      <a class="btn anon-btn" ng-class="{'anon-btn-active': anon}" ng-click="anon = !anon">Anon</a>
+      <a class="btn post-btn" ng-click="addMessage($event)">Post</a>
     </div>
     
     <script src="../assets/js/angular.min.js"></script>

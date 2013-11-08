@@ -17,19 +17,15 @@
   "browser_action": {
     "default_icon": {
       "19": "assets/img/icon_small.png",
-      "38": "assetes/img/icon_small.png"
+      "38": "assets/img/icon_small.png"
     },
     "default_title": "Stack Chat"
   },
   
-  "content_scripts": [
-    {
-      "matches": ["http://stackoverflow.com/questions/*", "http://stackoverflow.com/a/*"],
-      "js": ["assets/js/injector.js"]
-    }
+  "permissions": [
+    "activeTab"
   ],
   
-  "permissions": [
-    "tabs"
-  ]
+  "web_accessible_resources": ["views/chat_panel.html"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

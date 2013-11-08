@@ -71,3 +71,40 @@ textarea {
   font-size: 14px;
   margin: 9px;
 }
+
+a.btn{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 14px;
+  width: 60px;
+  text-align: center;
+  line-height: 1.5em;
+  margin: 9px;
+  border: solid 1px black;
+}
+
+a.post-btn{
+  background-color: #bb3e00;
+}
+
+a.anon-btn{
+  color: gray;
+  border: dashed 1px gray;
+  bottom: 30px;
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;  
+}
+
+a.anon-btn-active{
+  border: solid 1px black;
+  color: white;
+  background-color: #009303;
+}
+
+a:hover{
+  cursor: pointer;
+}
