@@ -4,7 +4,8 @@ var questionUrlMatch = /stackoverflow\.com\/questions\/(\d+)\//i.exec(window.loc
 // Stack Chat iFrame Injection
 function injectStackChat(){
   var iFrame  = document.createElement("iframe");
-  iFrame.src  = chrome.extension.getURL("views/chat_panel.html");
+  // iFrame.src  = chrome.extension.getURL("views/chat_panel.html");
+  iFrame.src  = "http://hiattp.github.io/stackchat";
   iFrame.setAttribute("frameBorder","0");
   iFrame.id = iFrameName;
   iFrame.style.cssText = "position: fixed; top: 0px; right: 0; width: 300px; z-index: 10000;";
