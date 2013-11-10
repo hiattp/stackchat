@@ -50,3 +50,7 @@ function windowMessageBus(msg){
     message: msg
   }, "*");
 }
+
+addEventListener("message", function(event) {
+  console.log("message in controllers: ",event);
+}, false);

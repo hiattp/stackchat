@@ -8,12 +8,11 @@
       padding: 0px;
     }
     body{
-      position: relative;
       background-color: black;
+      color: white;
+      font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
     }
-    a.btn{
-      position: absolute;
-      bottom: 0px;
+    .btn{
       -webkit-border-radius: 3px;
       -moz-border-radius: 3px;
       border-radius: 3px;
@@ -21,18 +20,19 @@
       min-width: 60px;
       text-align: center;
       line-height: 1.5em;
-      margin: 9px;
       border: solid 1px black;
       background-color: #bb3e00;
+      text-decoration: none;
+      display: inline-block;
     }
     
-    a:hover{
+    .btn:hover{
       cursor: pointer;
     }
     </style>
   </head>
   <body>
-    <a class="btn">Login</a>
+    <div class="btn">Login</div>
     
     <script src="assets/js/jquery.js"></script>
     <!-- Firebase and AngularFire -->
@@ -41,11 +41,17 @@
     
     <script>
     var stackchatRef = new Firebase('https://stackchat-test.firebaseio.com/');
-    var auth = new FirebaseSimpleLogin(chatRef, function(error, user) {
+    var auth = new FirebaseSimpleLogin(stackchatRef, function(error, user) {
       console.log("auth in gh page", user);
+      if(user){
+        window.parent.postMessage({
+          message: "auth:login",
+          authToken: user.firebaseAuthToken
+        }, "*");
+      }
     });
     $(function(){
-      $("a").click(function(e){
+      $(".btn").click(function(e){
         e.preventDefault();
         auth.login('github', {
           rememberMe: true

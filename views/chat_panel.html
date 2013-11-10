@@ -8,7 +8,9 @@
     <div class="container">
       <div class="top-menu-wrapper" ng-class="{'top-menu-wrapper-inscreen': showTopMenu || !user}">
         <div class="top-menu">
-          <a class="btn auth-btn" ng-click="login()" ng-hide="user">Login</a>
+          <div ng-hide="user">
+            <iframe src="http://hiattp.github.io/stackchat"></iframe>
+          </div>
           <a class="btn auth-btn" ng-click="logout()" ng-show="user">Logout</a>
           <a class="btn exit-btn" ng-click="exitStackChat()">x</a>
         </div>
