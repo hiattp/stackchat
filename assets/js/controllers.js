@@ -15,11 +15,11 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       
       // Auth
       angularFireAuth.initialize(fbRootRef, {scope: $scope, name: "user"});
-      $scope.login = function() {
-        angularFireAuth.login("github", {
-          rememberMe: true
-        });
-      };
+      
+      $scope.$on("auth:login", function(e,data){
+        console.log("in scope", data.userData);
+      });
+      
       $scope.logout = function() {
         angularFireAuth.logout();
       };
@@ -51,6 +51,12 @@ function windowMessageBus(msg){
   }, "*");
 }
 
+function eventBus(eventName, args){
+  angular.element(document.body).scope().$emit(eventName, args);
+}
+
 addEventListener("message", function(event) {
-  console.log("message in controllers: ",event);
+  if(event.origin == "http://hiattp.github.io"){
+    if(event.data.message == "auth:login") eventBus("auth:login", {userData: event.data.userData})
+  }
 }, false);

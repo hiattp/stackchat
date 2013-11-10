@@ -46,7 +46,7 @@
       if(user){
         window.parent.postMessage({
           message: "auth:login",
-          authToken: user.firebaseAuthToken
+          userData: user
         }, "*");
       }
     });
