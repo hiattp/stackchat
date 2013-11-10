@@ -56,8 +56,17 @@
         auth.login('github', {
           rememberMe: true
         });
-      });
+      });      
     });
+    
+    addEventListener("message", function(event) {
+      console.log("received message in auth frame", event);
+      // if(event.origin == "http://hiattp.github.io"){
+      //   if(event.data.message == "auth:login") eventBus("auth:login", {userData: event.data.userData})
+      // }
+    }, false);
+    
+        
     </script>
   </body>
 </html>

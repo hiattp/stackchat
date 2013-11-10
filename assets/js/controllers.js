@@ -40,9 +40,10 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
         fbRootRef.unauth();
         $scope.user = null;
         userMessageIndex = null;
+        childMessageBus("action:logout");
       };
       
-      // Chat Message Actions
+      // Chat Message Actions - prevent double submits
       $scope.addMessage = function(e) {
         if(e.keyCode && e.keyCode != 13) return;
         e.preventDefault();
@@ -61,7 +62,7 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       
       // General Actions
       $scope.exitStackChat = function(){
-        windowMessageBus("action:exit");
+        parentMessageBus("action:exit");
       }
       $scope.globalKeypress = function(e){
         if(e.keyCode == 27){
@@ -71,8 +72,14 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       }
 }]);
 
-function windowMessageBus(msg){
+function parentMessageBus(msg){
   window.parent.postMessage({
+    message: msg
+  }, "*");
+}
+
+function childMessageBus(msg){
+  document.getElementById('auth-frame').contentWindow.postMessage({
     message: msg
   }, "*");
 }
