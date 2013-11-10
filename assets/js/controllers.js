@@ -8,10 +8,20 @@ var stackchat =
 stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFireAuth', 'angularFireCollection',
     function($scope, $window, fbRootRef, angularFireAuth, angularFireCollection){
       // Setup vars
-      $scope.messages = angularFireCollection(fbRootRef.child('messages'));
       $scope.msg = "";
       $scope.anon = false;
-      var questionId = $window.name.split("-")[2];
+      var questionId = $window.name.split("-")[2]
+      , messagesRef = fbRootRef.child('messages')
+      , questionMessageIndex, userMessageIndex;
+      
+      if(questionId){
+        questionMessageIndex = new FirebaseIndex(fbRootRef.child('questions/'+questionId+"/message_list"), messagesRef);
+        $scope.messages = angularFireCollection(questionMessageIndex.limit(20));
+        $scope.onQuestionPage = true;
+      } else {
+        $scope.messages = angularFireCollection(messagesRef.limit(20));
+        $scope.onQuestionPage = false;
+      }
       
       // Auth
       $scope.$on("auth:login", function(e,data){
@@ -20,6 +30,7 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
           else{
             $scope.$apply(function(){
               $scope.user = data.userData;
+              userMessageIndex = new FirebaseIndex(fbRootRef.child('users/'+$scope.user.uid+"/message_list"), messagesRef);
             });
           }
         });
@@ -28,26 +39,35 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       $scope.logout = function() {
         fbRootRef.unauth();
         $scope.user = null;
+        userMessageIndex = null;
       };
       
-      // Chat Messages
+      // Chat Message Actions
       $scope.addMessage = function(e) {
-        if(e.keyCode == 27){
-          $scope.exitStackChat();
-          return;
-        }
         if(e.keyCode && e.keyCode != 13) return;
         e.preventDefault();
         if($scope.msg == 0) return;
-        var msg = {body: $scope.msg};
-        if(!$scope.anon) msg.username = "hiattp";
-        // $scope.messages.push(msg);
-        $scope.msg = "";
+        var newMsg = {body: $scope.msg, createdAt: Date.now(), questionId: questionId, userId: $scope.user.uid};
+        if(!$scope.anon) newMsg.username = $scope.user.username;
+        var id = messagesRef.push();
+        id.set(newMsg, function(err){
+          if(!err){
+            $scope.msg = "";
+            questionMessageIndex.add(id.name());
+            userMessageIndex.add(id.name());
+          }
+        });
       }
       
       // General Actions
       $scope.exitStackChat = function(){
         windowMessageBus("action:exit");
+      }
+      $scope.globalKeypress = function(e){
+        if(e.keyCode == 27){
+          $scope.exitStackChat();
+          return;
+        }        
       }
 }]);
 
