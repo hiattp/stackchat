@@ -21,11 +21,18 @@
     },
     "default_title": "Stack Chat"
   },
-  
+
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["assets/js/injector.js"]
+    }
+  ], 
+
   "permissions": [
     "activeTab"
   ],
   
-  "web_accessible_resources": ["views/chat_panel.html"],
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+  "web_accessible_resources": ["assets/js/jquery-2.0.3.min.map", "views/chat_panel.html"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval' https://*.firebaseio.com; object-src 'self'"
 }

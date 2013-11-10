@@ -17,6 +17,22 @@ body{
   width: 100%;
 }
 
+.top-menu-wrapper{
+  position: absolute;
+  height: 41px;
+  top: -43px;
+  width: 100%;
+  background-color: black;
+  z-index: 1;
+  border-bottom: solid 1px gray;
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;  
+}
+
+.top-menu-wrapper-inscreen{
+  top: 0px;
+}
+
 ul {
   margin: 0px;
   padding: 0px;
@@ -75,12 +91,11 @@ textarea {
 a.btn{
   position: absolute;
   bottom: 0px;
-  right: 0px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   font-size: 14px;
-  width: 60px;
+  min-width: 60px;
   text-align: center;
   line-height: 1.5em;
   margin: 9px;
@@ -89,9 +104,11 @@ a.btn{
 
 a.post-btn{
   background-color: #bb3e00;
+  right: 0px;
 }
 
 a.anon-btn{
+  right: 0px;
   color: gray;
   border: dashed 1px gray;
   bottom: 30px;
@@ -103,6 +120,25 @@ a.anon-btn-active{
   border: solid 1px black;
   color: white;
   background-color: #009303;
+}
+
+a.auth-btn{
+  background-color: #bb3e00;
+}
+
+a.exit-btn{
+  right: 0px;
+  color: gray;
+  border: dashed 1px gray;
+  min-width: 0px;
+  width: 20px;
+  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;  
+}
+
+a.exit-btn:hover{
+  color: white;
+  border: solid 1px white;
 }
 
 a:hover{
