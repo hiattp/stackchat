@@ -5,17 +5,26 @@ var stackchat =
     return new Firebase(fbRootUrl)
   }]);
 
-stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFireCollection',
-    function($scope, $window, fbRootRef, angularFireCollection){
+stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFireAuth', 'angularFireCollection',
+    function($scope, $window, fbRootRef, angularFireAuth, angularFireCollection){
       // Setup vars
       $scope.messages = angularFireCollection(fbRootRef.child('messages'));
       $scope.msg = "";
       $scope.anon = false;
       var questionId = $window.name.split("-")[2];
-      // for(i=0;i<20;i++) messages.push({body: "This is a long message!", username: "hiattp"})
-      // messages.push({body: "this is the last message and I really appreciate the opportuntiy to do this."});
-      // $scope.messages = messages;
       
+      // Auth
+      angularFireAuth.initialize(fbRootRef, {scope: $scope, name: "user"});
+      $scope.login = function() {
+        angularFireAuth.login("github", {
+          rememberMe: true
+        });
+      };
+      $scope.logout = function() {
+        angularFireAuth.logout();
+      };
+      
+      // Chat Messages
       $scope.addMessage = function(e) {
         if(e.keyCode == 27){
           $scope.exitStackChat();
@@ -30,6 +39,7 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
         $scope.msg = "";
       }
       
+      // General Actions
       $scope.exitStackChat = function(){
         windowMessageBus("action:exit");
       }

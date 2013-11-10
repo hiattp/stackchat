@@ -23,8 +23,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
   return true;
 });
-
-injectStackChat();
+// injectStackChat();
 
 // Message handlers
 

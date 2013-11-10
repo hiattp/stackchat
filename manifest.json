@@ -25,7 +25,7 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["assets/js/injector.js"]
+      "js": ["assets/js/firebase.js", "assets/js/firebase-simple-login.js", "assets/js/injector.js"]
     }
   ], 
 
