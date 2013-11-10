@@ -102,6 +102,13 @@ a.btn{
   border: solid 1px black;
 }
 
+iframe{
+  position: absolute;
+  bottom: 0px;
+  margin: 7px;
+  left: 2px;
+}
+
 a.post-btn{
   background-color: #bb3e00;
   right: 0px;

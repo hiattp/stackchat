@@ -14,14 +14,20 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       var questionId = $window.name.split("-")[2];
       
       // Auth
-      angularFireAuth.initialize(fbRootRef, {scope: $scope, name: "user"});
-      
       $scope.$on("auth:login", function(e,data){
-        console.log("in scope", data.userData);
+        fbRootRef.auth(data.userData.firebaseAuthToken, function(err){
+          if(err) console.log('login failed'); // handle this
+          else{
+            $scope.$apply(function(){
+              $scope.user = data.userData;
+            });
+          }
+        });
       });
       
       $scope.logout = function() {
-        angularFireAuth.logout();
+        fbRootRef.unauth();
+        $scope.user = null;
       };
       
       // Chat Messages
@@ -55,6 +61,8 @@ function eventBus(eventName, args){
   angular.element(document.body).scope().$emit(eventName, args);
 }
 
+// consider moving all this so don't need event listener and bus...should be able to go straight 
+// to parent frame from child with this event and data.
 addEventListener("message", function(event) {
   if(event.origin == "http://hiattp.github.io"){
     if(event.data.message == "auth:login") eventBus("auth:login", {userData: event.data.userData})
