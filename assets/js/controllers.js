@@ -5,8 +5,8 @@ var stackchat =
     return new Firebase(fbRootUrl)
   }]);
 
-stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFireAuth', 'angularFireCollection',
-    function($scope, $window, fbRootRef, angularFireAuth, angularFireCollection){
+stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFireCollection',
+    function($scope, $window, fbRootRef, angularFireCollection){
       // Setup vars
       $scope.msg = "";
       $scope.anon = false;
@@ -43,21 +43,28 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
         childMessageBus("action:logout");
       };
       
-      // Chat Message Actions - prevent double submits
+      // Chat Message Actions
       $scope.addMessage = function(e) {
         if(e.keyCode && e.keyCode != 13) return;
         e.preventDefault();
-        if($scope.msg == 0) return;
+        if($scope.msg == 0 || $scope.savingMessage) return;
+        $scope.savingMessage = true;
         var newMsg = {body: $scope.msg, createdAt: Date.now(), questionId: questionId, userId: $scope.user.uid};
         if(!$scope.anon) newMsg.username = $scope.user.username;
         var id = messagesRef.push();
         id.set(newMsg, function(err){
+          $scope.savingMessage = false;
           if(!err){
             $scope.msg = "";
             questionMessageIndex.add(id.name());
             userMessageIndex.add(id.name());
           }
         });
+      }
+      
+      $scope.redirectToQuestion = function(questionId){
+        if($scope.onQuestionPage) return;
+        parentMessageBus("action:redirect", {newLocation: "http://stackoverflow.com/questions/"+questionId});
       }
       
       // General Actions
@@ -72,9 +79,10 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       }
 }]);
 
-function parentMessageBus(msg){
+function parentMessageBus(msg, args){
   window.parent.postMessage({
-    message: msg
+    message: msg,
+    args: args
   }, "*");
 }
 

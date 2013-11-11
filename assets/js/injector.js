@@ -23,7 +23,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
   return true;
 });
-// injectStackChat();
 
 // Message handlers
 
@@ -33,6 +32,8 @@ addEventListener("message", function(event) {
     if(event.data.message == "action:exit"){
       var existingPanel = document.getElementById(iFrameName);
       if(existingPanel) document.body.removeChild(existingPanel);
+    } else if(event.data.message == "action:redirect"){
+      window.location.href = event.data.args.newLocation;
     }
   }
 }, false);
