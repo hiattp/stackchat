@@ -40,9 +40,9 @@
     <script src="../assets/js/firebase-simple-login.js"></script>
     
     <script>
-    var stackchatRef = new Firebase('https://stackchat-test.firebaseio.com/');
+    var stackchatRef = new Firebase('https://stackchat.firebaseio.com/');
     var auth = new FirebaseSimpleLogin(stackchatRef, function(error, user) {
-      console.log("auth event in auth frame", user);
+      // console.log("auth event in auth frame", user);
       if(user){
         window.parent.postMessage({
           message: "auth:login",
@@ -72,4 +72,3 @@
     </script>
   </body>
 </html>
-

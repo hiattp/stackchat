@@ -1,6 +1,6 @@
 var stackchat = 
   angular.module('stackchat', ['firebase']).
-  constant('firebaseRootUrl', "https://stackchat-test.firebaseIO.com").
+  constant('firebaseRootUrl', "https://stackchat.firebaseIO.com").
   factory('fbRootRef', ['firebaseRootUrl', function(fbRootUrl){
     return new Firebase(fbRootUrl)
   }]);
