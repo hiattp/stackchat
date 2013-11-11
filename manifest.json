@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Stack Chat",
-  "description": "Chat about Stack Overflow questions and answers directly on the question page.",
+  "description": "Write notes or chat about Stack Overflow questions and answers directly on the question page.",
   "version": "0.1",
   
   "icons": { 
@@ -24,8 +24,8 @@
 
   "content_scripts": [
     {
-      "matches": ["http://*/*", "https://*/*"],
-      "js": ["assets/js/firebase.js", "assets/js/firebase-simple-login.js", "assets/js/injector.js"]
+      "matches": ["http://stackoverflow.com/*"],
+      "js": ["assets/js/firebase.js", "assets/js/injector.js"]
     }
   ], 
 
