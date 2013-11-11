@@ -50,20 +50,20 @@
         }, "*");
       }
     });
-    
+
     $(function(){
       $(".btn").click(function(e){
         e.preventDefault();
         auth.login('github', {
           rememberMe: true
         });
-      });      
+      });
     });
-    
+
     addEventListener("message", function(event) {
-      console.log("received message in auth frame", event);
+      // console.log("received message in auth frame", event);
       if(event.data.message == "action:logout"){
-        console.log("logout handler in auth frame:", auth);
+        // console.log("logout handler in auth frame:", auth);
         auth.logout();
       }
     }, false);

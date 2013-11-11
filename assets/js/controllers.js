@@ -11,8 +11,8 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       $scope.msg = "";
       $scope.anon = false;
       var questionId = $window.name.split("-")[2]
-      , messagesRef = fbRootRef.child('messages')
-      , questionMessageIndex, userMessageIndex;
+        , messagesRef = fbRootRef.child('messages')
+        , questionMessageIndex, userMessageIndex;
       
       if(questionId){
         questionMessageIndex = new FirebaseIndex(fbRootRef.child('questions/'+questionId+"/message_list"), messagesRef);
@@ -71,6 +71,7 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       $scope.exitStackChat = function(){
         parentMessageBus("action:exit");
       }
+      
       $scope.globalKeypress = function(e){
         if(e.keyCode == 27){
           $scope.exitStackChat();
@@ -79,6 +80,9 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
       }
 }]);
 
+// Inter-iFrame Messaging and Events
+
+// Pass messages to injector (content) script
 function parentMessageBus(msg, args){
   window.parent.postMessage({
     message: msg,
@@ -86,18 +90,19 @@ function parentMessageBus(msg, args){
   }, "*");
 }
 
+// Pass messages to auth frame (hosted on gh-pages)
 function childMessageBus(msg){
   document.getElementById('auth-frame').contentWindow.postMessage({
     message: msg
   }, "*");
 }
 
+// Translate received messages into angular events
 function eventBus(eventName, args){
   angular.element(document.body).scope().$emit(eventName, args);
 }
 
-// consider moving all this so don't need event listener and bus...should be able to go straight 
-// to parent frame from child with this event and data.
+// Listen for messages from other frames
 addEventListener("message", function(event) {
   if(event.origin == "http://hiattp.github.io"){
     if(event.data.message == "auth:login") eventBus("auth:login", {userData: event.data.userData})

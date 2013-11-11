@@ -24,11 +24,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   return true;
 });
 
-// Message handlers
+// Inter-iFrame Messaging and Events
 
+// Listen for messages from other frames
 addEventListener("message", function(event) {
   if (event.origin + "/views/chat_panel.html" == chrome.extension.getURL("views/chat_panel.html")){
-    console.log("Received message from chat panel:", event);
+    // console.log("Received message from chat panel:", event);
     if(event.data.message == "action:exit"){
       var existingPanel = document.getElementById(iFrameName);
       if(existingPanel) document.body.removeChild(existingPanel);
