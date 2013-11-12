@@ -1,5 +1,5 @@
 var stackchat = 
-  angular.module('stackchat', ['firebase']).
+  angular.module('stackchat', ['firebase', 'luegg.scrollglue']).
   constant('firebaseRootUrl', "https://stackchat.firebaseIO.com").
   factory('fbRootRef', ['firebaseRootUrl', function(fbRootUrl){
     return new Firebase(fbRootUrl)

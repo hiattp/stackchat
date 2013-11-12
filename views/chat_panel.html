@@ -15,7 +15,7 @@
           <a class="btn exit-btn" ng-click="exitStackChat()">x</a>
         </div>
       </div>
-      <div class="main-content">
+      <div class="main-content" scroll-glue>
         <ul>
           <div ng-repeat="msg in messages">
             <li ng-class="{'linked-message': !onQuestionPage}" ng-click="redirectToQuestion(msg.questionId)">
@@ -55,6 +55,7 @@
     <script src="../assets/js/firebase-simple-login.js"></script>
     <script src="../assets/js/angularfire.js"></script>
     <script src="../assets/js/FirebaseIndex.js"></script>
+    <script src="../assets/js/scrollglue.js"></script>
     <script src="../assets/js/controllers.js"></script>
   </body>
 </html>
