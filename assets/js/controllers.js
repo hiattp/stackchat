@@ -108,3 +108,13 @@ addEventListener("message", function(event) {
     if(event.data.message == "auth:login") eventBus("auth:login", {userData: event.data.userData})
   }
 }, false);
+
+// Listen for resizing and adjust the chat ul appropriately
+window.addEventListener('resize', resizeChatWrapper, false);
+function resizeChatWrapper(){
+  $(".main-content").height($(document).height() - 163);
+  // iFrame.style.height = window.innerHeight + "px";
+}
+$(function(){
+  resizeChatWrapper()
+});

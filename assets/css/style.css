@@ -12,39 +12,34 @@ body{
 }
 
 .container{
-  position: relative;
-  height: 100%;
+  min-height: 100%;
+}
+
+.main-content{
+  overflow: auto;
   width: 100%;
+  height: 500px;
 }
 
 .top-menu-wrapper{
-  position: absolute;
-  height: 41px;
-  top: -43px;
-  width: 100%;
   background-color: black;
-  z-index: 1;
-  border-bottom: solid 1px gray;
-  -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
-  transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;  
+  border-bottom: dashed 1px white;
+  padding: 9px;
+  height: 23px;
 }
 
-.top-menu-wrapper-inscreen{
-  top: 0px;
+iframe{
+  float: left;
 }
 
 ul {
   margin: 0px;
-  padding: 0px;
   list-style-type: none;
   line-height: 1.3em;
-  position: absolute;
-  bottom: 117px;
-  width: 100%;
+  padding: 9px;
 }
 
 li {
-  margin: 9px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
@@ -52,6 +47,7 @@ li {
   padding: 8px;
   border-top: solid 1px black;
   border-left: solid 1px black;
+  margin-bottom: 9px;
 }
 
 li.linked-message:hover{
@@ -63,11 +59,10 @@ li.linked-message:hover{
 }
 
 p.msg-username{
-  margin: 0px;
-  margin-right: 12px;
   text-align: right;
   font-size: 12px;
   color: #FE5400;
+  padding-right: 5px;
 }
 
 hr.msg-username-break{
@@ -79,7 +74,8 @@ hr.msg-username-break{
 
 textarea {
   position: absolute;
-  bottom: 0px;
+  bottom: 11px;
+  left: 11px;
   resize: none;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -89,57 +85,63 @@ textarea {
   outline: none;
   padding: 5px;
   font-size: 14px;
-  margin: 9px;
 }
 
 textarea.saving-message{
   color: gray;
 }
 
+.footer{
+  position: relative;
+	margin-top: -120px; /* negative value of footer height */
+	height: 120px;
+	clear: both;
+}
+
+.footer-content{
+  position: relative;
+  height: 100%;
+}
+
 .instructions{
-  position: absolute;
+  position: relative;
+  top: 10px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   border: dashed 1px gray;
   color: gray;
-  bottom: 0px;
-  margin: 10px;
+  height: 82px;
   padding: 7px;
-  min-height: 81px;
+  width: 258px;
+  margin: auto;
 }
 
 a.btn{
-  position: absolute;
-  bottom: 0px;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   font-size: 14px;
-  min-width: 60px;
   text-align: center;
-  line-height: 1.5em;
-  margin: 9px;
   border: solid 1px black;
-}
-
-iframe{
-  position: absolute;
-  bottom: 0px;
-  margin: 7px;
-  left: 2px;
+  line-height: 1.5em;
 }
 
 a.post-btn{
+  position: absolute;
   background-color: #bb3e00;
-  right: 0px;
+  right: 10px;
+  bottom: 12px;
+  width: 55px;
 }
 
 a.anon-btn{
-  right: 0px;
+  width: 55px;
+  position: absolute;
+  right: 10px;
   color: gray;
   border: dashed 1px gray;
-  bottom: 30px;
+  bottom: 40px;
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;  
 }
@@ -151,14 +153,19 @@ a.anon-btn-active{
 }
 
 a.auth-btn{
+  position: relative;
+  left: 1px;
+  float: left;
+  padding-left:  6px;
+  padding-right: 6px;
   background-color: #bb3e00;
 }
 
 a.exit-btn{
-  right: 0px;
-  color: gray;
-  border: dashed 1px gray;
-  min-width: 0px;
+  padding: 0px;
+  float: right;
+  color: gray;  
+  border: solid 1px gray;
   width: 20px;
   -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
   transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;  
