@@ -49,21 +49,22 @@ stackchat.controller('ChatCtrl', ['$scope', '$window', 'fbRootRef', 'angularFire
         e.preventDefault();
         if($scope.msg == 0 || $scope.savingMessage) return;
         $scope.savingMessage = true;
-        var newMsg = {body: $scope.msg, createdAt: Date.now(), questionId: questionId, userId: $scope.user.uid};
+        var newMsg = {body: $scope.msg, createdAt: Date.now(), userId: $scope.user.uid};
+        if($scope.onQuestionPage) newMsg.questionId = questionId;
         if(!$scope.anon) newMsg.username = $scope.user.username;
         var id = messagesRef.push();
         id.set(newMsg, function(err){
           $scope.savingMessage = false;
           if(!err){
             $scope.msg = "";
-            questionMessageIndex.add(id.name());
+            if($scope.onQuestionPage) questionMessageIndex.add(id.name());
             userMessageIndex.add(id.name());
           }
         });
       }
       
       $scope.redirectToQuestion = function(questionId){
-        if($scope.onQuestionPage) return;
+        if($scope.onQuestionPage || !questionId) return;
         parentMessageBus("action:redirect", {newLocation: "http://stackoverflow.com/questions/"+questionId});
       }
       

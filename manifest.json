@@ -3,7 +3,7 @@
 
   "name": "Stack Chat",
   "description": "Write notes or chat about Stack Overflow questions and answers directly on the question page.",
-  "version": "0.2",
+  "version": "0.3",
   
   "icons": { 
     "128": "assets/img/icon_large.png"
